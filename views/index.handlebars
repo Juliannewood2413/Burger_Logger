@@ -1,0 +1,31 @@
+<body>
+    <h1>Good Burger</h1>
+
+    <ul>
+        {{#each burgers}}
+        <li>
+            <p>{{this.id}}</p>
+            <p>{{this.burger_name}}</p>
+        </li>
+        {{/each}}
+
+
+    </ul>
+
+    <br>
+
+    <h2>Order a Burger</h2>
+
+    <form id="order-form">
+
+        <div class="form-group">
+            <label for="order">Enter your order here:</label>
+            <input type="text" id="order" name="order">
+        </div>
+
+        <button type="submit">Place My Order!</button>
+    </form>
+
+
+
+</body>

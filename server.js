@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+
 const express = require('express');
 const exphbs = require('express-handlebars');
 
@@ -16,29 +16,10 @@ app.use(express.json());
 app.engine('handlebars', exphbs({defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'A55hole!',
-    database: 'burgers_db'
-});
 
-//sends index.handlebars to the root route
-app.get('/', (req, res) => {
-    connection.query('SELECT * FROM burgers', (err, data) => {
-        if (err) {
-            return res.status(500).end();
-        }
+const routes = require('./burger/controllers/burgers_controller.js');
 
-        res.render('index', {burgers: data});
-    });
-});
-
-//add post, put and delete here
-
-
-
+app.use(routes);
 
 //Start server
 app.listen(PORT, () => 
