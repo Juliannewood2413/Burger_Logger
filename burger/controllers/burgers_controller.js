@@ -2,16 +2,16 @@
 const express = require('express');
 
 const router = express.Router();
-
+//uses db functions from burger.js
 const burger = require('../models/burger.js');
 
 router.get('/', (req, res) => {
     burger.all((data) => {
-        const hbsObject = {
+        const hbsObject = {  //creating handlebars object
             burgers: data
         };
         console.log(hbsObject);
-        res.render('index', hbsObject)
+        res.render('index', hbsObject) //render handlebars object to index.handlebars
     });
 });
 
@@ -22,7 +22,7 @@ router.post('/api/burgers', (req, res) => {
 });
 
 router.put('/api/burgers/:id', (req, res) => {
-    const condiiton = `id = ${req.params.id}`;
+    const condition = `id = ${req.params.id}`;
 
     console.log('condition', condition);
 
@@ -39,6 +39,17 @@ router.put('/api/burgers/:id', (req, res) => {
         }
     );
 });
+
+router.delete('/api/burgers/:id', (req, res) => {
+    const condition = `id = ${req.params.id}`;
+
+    burger.delete(condition, (result) => {
+        if(result.affectedRows === 0) {
+            return res.status(404).end();
+        }
+        res.status(200).end();
+    })
+})
 
 module.exports = router;
 

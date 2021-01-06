@@ -4,42 +4,43 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.info('DOM loaded');
     }
 
-    //ADD BURGER 
+    //UPDATE BURGER 
 
     const orderBurgerBtn = document.getElementById('order-form');
 
     if(orderBurgerBtn) {
-        orderBurgerBtn.addEventListener('submit', (e) => {
-            e.preventDefault();
+      orderBurgerBtn.forEach((button) => {
+        button.addEventListener(click, (e) => {
 
-            const newOrder = {
-                burger: document.getElementById('order').value.trim()
+            const id = e.target.getAttribute('data-id');
+            const devourBurger = e.target.getAttribute('data-newBurger');
+  
+            const newDevouredState = {
+                devoured: devourBurger,
             };
-            console.log(newOrder);
 
-            //POST request for new order
-            fetch('/api/burgers', {
-                method: 'POST',
+            fetch(`/api/burger/${id}`,  {
+                method: 'PUT',
                 headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'Content-Type' : 'application/json',
                 },
-        
-                // make sure to serialize the JSON body
-                body: JSON.stringify(newOrder),
-              }).then((response) => {
-                // Empty the form
-                document.getElementsByName('order')[0].value = '';
-        
-                // Reload the page with new order
-                console.log('Created a new order!');
-                location.reload();
-              });
 
+                body: JSON.stringify(newSleepState)
+            }).then((response) => {
+                if (response.ok) {
+                    console.log(`Changed state to: ${newDevouredState}`);
+                    location.reload('/');
+                } else {
+                    alert('Something went wrong!');
+                }
+            })
 
         })
+      })
     }
 
+    //ADD
 
 
 
