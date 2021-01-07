@@ -2,11 +2,10 @@
 
     {{burger_name}}
 
-    <button class="devoured" data-id="{{id}}" data-newBurger="{{devour}}">
-        {{#if devour}}DEVOUR!{{else}}SAVE FOR LATER!{{/if}}
-    </button>
+    {{#unless devoured}}
+    <button class="devour" data-id="{{id}}" data-newsleep={{sleep}}> Eat the Burger!!</button>
 
-    <button class="delete-burger" data-id"{{this.id}}">DELETE BURGER</button>
+    {{/unless}}
 
 
 </li>

@@ -4,43 +4,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.info('DOM loaded');
     }
 
-    //UPDATE BURGER 
+    //ADD BURGER 
 
-    const orderBurgerBtn = document.getElementById('order-form');
+    const orderBurgerBtn = document.getElementById('create-form');
 
     if(orderBurgerBtn) {
-      orderBurgerBtn.forEach((button) => {
-        button.addEventListener(click, (e) => {
+        orderBurgerBtn.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-            const id = e.target.getAttribute('data-id');
-            const devourBurger = e.target.getAttribute('data-newBurger');
-  
-            const newDevouredState = {
-                devoured: devourBurger,
+            const newOrder = {
+                burger: document.getElementById('burg').value.trim()
             };
+            console.log(newOrder);
 
-            fetch(`/api/burger/${id}`,  {
-                method: 'PUT',
+            //POST request for new order
+            fetch('/api/burgers', {
+                method: 'POST',
                 headers: {
-                    Accept: 'application/json',
-                    'Content-Type' : 'application/json',
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
                 },
+        
+                // make sure to serialize the JSON body
+                body: JSON.stringify(newOrder),
+              }).then((response) => {
+                // Empty the form
+                document.getElementsByName('burg')[0].value = '';
+        
+                // Reload the page with new order
+                console.log('Created a new order!');
+                location.reload();
+              });
 
-                body: JSON.stringify(newSleepState)
-            }).then((response) => {
-                if (response.ok) {
-                    console.log(`Changed state to: ${newDevouredState}`);
-                    location.reload('/');
-                } else {
-                    alert('Something went wrong!');
-                }
-            })
 
         })
-      })
-    }
+    };
 
-    //ADD
+    //Devour function
+
+    
+
 
 
 
