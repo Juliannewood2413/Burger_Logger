@@ -40,9 +40,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
         })
     };
 
-    //Devour function
+    //EAT BURGER
+    const eatBurgerBtn = document.querySelectorAll('.devour')
 
-    
+    if(eatBurgerBtn) {
+        eatBurgerBtn.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                const id = e.target.getAttribute('data-id');
+                const newDevour = e.target.getAttribute('data-newdevour');
+
+                const newDevourState = {
+                    devoured: newDevour,
+                };
+
+                fetch(`/api/burgers/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newDevourState),
+                }).then((response) => {
+                    if (response.ok) {
+                        console.log(`Burger has been changed to: ${newDevour}`);
+                        location.reload('/');
+                    }else {
+                        alert('Error');
+                    }
+                })
+
+            })
+        })
+    }
+
+
 
 
 
