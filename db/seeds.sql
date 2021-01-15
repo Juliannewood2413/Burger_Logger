@@ -1,6 +1,6 @@
 
 
-INSERT INTO burgers (burger_name, devoured) VALUE("Cheeseburger", true), ("Hamburger", true), ("Black_Bean_Burger", true);
+INSERT INTO burgers (burger_name, devoured) VALUE("Cheeseburger", devoured), ("Hamburger", devoured), ("Black_Bean_Burger", devoured);
 
 SELECT * FROM burgers;
 

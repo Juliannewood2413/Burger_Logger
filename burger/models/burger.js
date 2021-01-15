@@ -5,15 +5,16 @@ const burger = {
         orm.all('burgers', (res) => cb(res));
     },
 
-    create(cols, vals, cb) {
-        orm.create('burgers', cols, vals, (res) => cb(res));
+    create(name, cb) {
+        orm.create('burgers', ['burger_name', 'devoured'], [name, false], cb);
     },
 
-    update(objColVals, condition, cb) {
-        orm.update('burgers', objColVals, condition, (res) => cb(res));
+    update(id, cb) {
+        const condition = 'id=' + id;
+        orm.update('burgers', {devoured: true}, condition, cb);
     },
 
-    delete(condition, cb) {
+    delete(id, cb) {
         orm.delete('burgers', condition, (res) => cb(res))
     }
 };
